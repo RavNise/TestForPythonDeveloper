@@ -145,8 +145,11 @@ async def delete_document(
             )
 
         except NotFoundError:
-            # документа в индексе нет — это нормально, продолжаем удалять из БД
-            pass
+            if error.body.get("result") != "not_found":
+                raise HTTPException(
+                    status_code=503,
+                    detail="Поисковый индекс недоступен",
+                ) from error
 
         except (ApiError, TransportError) as error:
             raise HTTPException(
