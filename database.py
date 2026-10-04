@@ -11,7 +11,6 @@ DB_PATH = Path(
 def create_database():
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(DB_PATH)
-    connection = sqlite3.connect(DB_PATH)
 
     try:
         connection.execute("""
