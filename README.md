@@ -82,7 +82,7 @@ curl -i -X DELETE "http://127.0.0.1:8000/documents/39"
 ## Тесты
 
 ```bash
-docker compose run --rm -e API_URL=http://host.docker.internal:8000 api pytest -v test_api.py
+docker compose run --rm -e API_URL=http://api:8000 api pytest -v test_api.py
 ```
 
 Ожидаемо: `9 passed`.
@@ -92,7 +92,8 @@ docker compose run --rm -e API_URL=http://host.docker.internal:8000 api pytest -
 `docs.json` — спецификация сервиса в формате OpenAPI 3.1. Пересобрать:
 
 ```bash
-docker compose run --rm api python export_docs.py
+docker compose exec api python export_docs.py
+docker compose cp api:/app/docs.json ./docs.json
 ```
 
 ## Остановка
